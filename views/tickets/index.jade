@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+
+  h1 Open Tickets
+  if tickets
+    table.table.table-pattern
+     thead
+       tr
+         th Ticket id
+         th User Name
+         th User email
+         th Problem
+         th Priority
+         th Ticket Status
+         th
+     tbody
+       for ticket in tickets
+         tr
+           td
+             a(href='/tickets/#{ticket.id}/edit') HD#{ticket.id}
+           td= ticket.name
+           td
+             a(href='mailto:#{ticket.email}')=ticket.email
+           td= ticket.issue
+           td= ticket.priority
+           td
+             = ticket.open ? "Open" : "Closed"
+           td
+            a(href='/tickets/#{ticket.id}/delete') delete
+
+
+   div
+   a(href='/tickets/new') Add a new ticket
