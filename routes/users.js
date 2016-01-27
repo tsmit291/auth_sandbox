@@ -10,7 +10,6 @@ function Users(){
 
 router.post('/', function(req, res, next) {
   Users().insert(req.body).then(function(val){
-    res.cookie("user", req.body.email);
     res.redirect("/tickets");
   });
 });
@@ -18,7 +17,6 @@ router.post('/', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     Users().where({email: req.body.email, password: req.body.password}).first().then(function(found){
        if (found){
-         res.cookie("user", req.body.email);
          res.redirect("/tickets");
        } else {
          res.redirect("/no_auth");

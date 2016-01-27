@@ -7,14 +7,9 @@ function Tickets() {
 }
 
 router.get('/', function(req, res, next) {
-  if (req.cookies.user){
     Tickets().select().then(function (tickets) {
       res.render('tickets/index', {tickets: tickets});
-    })
-  } else {
-    res.redirect("/"); 
-  }
-
+    });
 });
 
 router.post('/', function(req, res, next) {
@@ -24,7 +19,6 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/:id/update', function(req, res, next) {
-  console.log("body is "+JSON.stringify(req.body));
   Tickets().where({id: req.params.id}).update(req.body).then(function(tickets) {
     res.redirect('/');
   })
