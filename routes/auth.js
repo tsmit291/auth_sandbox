@@ -2,16 +2,9 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt')
 
-router.get('/', function(req, res, next) {
-  if (req.cookies.user){
-    res.redirect("/tickets");
-  } else {
-    res.render("auth/signin", {button_text: "sign in"});
-  }
-});
 
 router.get('/signin', function(req, res, next) {
-    if (req.cookies.user){
+    if (req.signedCookies.user){
       res.render("auth/yougood");
     } else {
       res.render("auth/signin", {button_text: "sign in"});
@@ -30,9 +23,6 @@ router.get('/signup', function(req, res, next) {
 router.get('/no_auth', function(req, res, next) {
     res.render("auth/yousuck");
 });
-
- 
-
 
 
 module.exports = router;
