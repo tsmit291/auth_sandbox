@@ -20,6 +20,12 @@ router.post('/', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     Users().where({email: req.body.email}).first().then(function(found){
        if (found){
+         // compareSync should only be used in low-traffic apps.
+         // for production, use Bcrypt's async method:
+         // bcrypt.compare(req.body.password, found.password, function(err, res) {
+             // res == true
+         //});
+
          if (bcrypt.compareSync(req.body.password, found.password)){
            res.cookie("user", req.body.email, {signed: true});
            res.redirect("/tickets");
